@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #050510;
+    color: white;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 25%);
+  }
+}
+
+.anti-gravity-card {
+  background-color: rgba(17, 17, 34, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid #333344;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+  border-radius: 1rem;
+}
+
+.neon-border {
+  position: relative;
+}
+.neon-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #10b981);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.neon-border:hover::before {
+  opacity: 0.5;
+}

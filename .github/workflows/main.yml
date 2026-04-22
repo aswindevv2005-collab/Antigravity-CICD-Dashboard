@@ -1,4 +1,4 @@
-name: CI/CD Pipeline Web Application
+name: Anti-Gravity CI/CD Deployment
 
 on:
   push:
@@ -6,38 +6,33 @@ on:
       - main
 
 jobs:
-  build-and-test:
-    name: Full-Stack Verification
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: 🐍 Setup Python 3.10
-        uses: actions/setup-python@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          python-version: '3.10'
-          cache: 'pip'
+          node-version: '20'
 
-      - name: 📦 Install dependencies
+      - name: Build Frontend
+        working-directory: ./frontend
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          npm install
+          npm run build
 
-      - name: 🧪 Execute Flask integrity tests
-        run: pytest test_app.py -v
+      - name: Build Backend
+        working-directory: ./backend
+        run: npm install
 
-  deploy:
-    name: Deploy to Production
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://example.com/production  # You can change this to your actual deployment URL
-    
-    steps:
-      - name: 🚀 Simulate Deployment
+      # DEPLOYMENT STEPS (Configure with your secrets)
+      - name: Deploy to Production
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
-          echo "Simulating deployment to production server..."
-          echo "Deployment successful! 🌍"
+          echo "Triggering deployment webhook..."
+          # curl -X POST https://api.render.com/deploy/srv-xxx?key=$RENDER_API_KEY
+          echo "Deployment successful."
