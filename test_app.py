@@ -11,5 +11,5 @@ def test_dashboard_route(client):
     """Test that the dashboard renders correctly and returns a 200 status code."""
     response = client.get("/")
     assert response.status_code == 200
-    assert b"CI/CD Pipeline Web Application" in response.data
-    assert b"Deployment Success" in response.data
+    assert b"Enterprise CI/CD Dashboard" in response.data
+    assert b"Pipeline Execution Summary" in response.data
