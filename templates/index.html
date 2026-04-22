@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise CI/CD Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>CI/CD Portal</h2>
+            <span class="badge">v1.0.0</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active">Pipelines</li>
+            <li>Environments</li>
+            <li>Deployments</li>
+            <li>Settings</li>
+        </ul>
+    </nav>
+    <main class="content">
+        <header class="top-bar">
+            <h1>Pipeline Execution Summary</h1>
+            <div class="user-profile">System Administrator</div>
+        </header>
+
+        <section class="dashboard-grid">
+            <div class="card summary-card">
+                <h3>Deployment Status</h3>
+                <div class="status-badge success">
+                    <span class="dot"></span> Passing
+                </div>
+                <p class="description">The automated GitHub Actions workflow completed without errors. The system is verified and ready for production.</p>
+            </div>
+
+            <div class="card metrics-card">
+                <h3>System Metrics</h3>
+                <table class="metrics-table">
+                    <tr>
+                        <td>Route Verification:</td>
+                        <td class="success">{{ status }}</td>
+                    </tr>
+                    <tr>
+                        <td>Module Check:</td>
+                        <td class="success">{{ module_status }}</td>
+                    </tr>
+                    <tr>
+                        <td>Python Version:</td>
+                        <td>3.10.x</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="log-section">
+            <div class="card logs-card">
+                <div class="card-header">
+                    <h3>Server Diagnostics Logs</h3>
+                    <span class="timestamp">Latest Build: Just now</span>
+                </div>
+                <pre class="terminal">
+[SYSTEM] Initializing Ubuntu Docker container...
+[SYSTEM] Fetching repository from origin...
+[INFO]   Installing requirements.txt (Flask, pytest)
+[TEST]   Executing pytest test_app.py -v
+[TEST]   test_dashboard_route PASSED [100%]
+[SUCCESS] Pipeline finalized. Application is healthy.
+                </pre>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

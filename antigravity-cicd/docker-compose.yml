@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  backend:
+    build: 
+      context: ./backend
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./backend/workspace:/app/workspace
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

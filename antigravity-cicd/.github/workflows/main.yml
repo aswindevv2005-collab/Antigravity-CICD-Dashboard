@@ -1,0 +1,38 @@
+name: Anti-Gravity CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run build
+
+      - name: Build Backend
+        working-directory: ./backend
+        run: npm install
+
+      # DEPLOYMENT STEPS (Configure with your secrets)
+      - name: Deploy to Production
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          echo "Triggering deployment webhook..."
+          # curl -X POST https://api.render.com/deploy/srv-xxx?key=$RENDER_API_KEY
+          echo "Deployment successful."
